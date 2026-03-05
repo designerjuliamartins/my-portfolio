@@ -441,6 +441,176 @@
       .hero-title .line-2 { font-size: 34px; }
       .projects-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Password Overlay ───────────────────────────────── */
+    .pw-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #1b1e22;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .pw-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Gradient blobs inside the overlay */
+    .pw-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+    }
+    .pw-blob-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(190, 25, 50, 0.9) 0%, rgba(120, 10, 25, 0.55) 50%, transparent 75%);
+      top: -150px;
+      left: -100px;
+      animation: blob1 3s ease-in-out infinite alternate;
+    }
+    .pw-blob-2 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(215, 25, 100, 0.5) 0%, transparent 70%);
+      top: 30%;
+      left: 5%;
+      animation: blob3 5s ease-in-out infinite alternate;
+    }
+    .pw-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/70a2ba42-36b6-4bc3-907c-3f9519feb152');
+      background-size: 2048px 2048px;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Nav inside overlay */
+    .pw-nav {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 73px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    /* Center content */
+    .pw-body {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+      padding: 0 20px;
+    }
+    .pw-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.2;
+      letter-spacing: 1px;
+      color: #fff;
+      text-align: center;
+    }
+    .pw-title em {
+      font-style: italic;
+    }
+    .pw-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 35px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .pw-form {
+      display: flex;
+      align-items: stretch;
+      margin-top: 8px;
+    }
+    .pw-input {
+      width: 400px;
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #1b1e22;
+      background: #fff;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      line-height: 35px;
+    }
+    .pw-input::placeholder { color: #9e9e9e; }
+    .pw-input.error { animation: shake 0.4s ease; }
+    .pw-submit {
+      background: #d71964;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 32px;
+      color: #fff;
+      line-height: 35px;
+      transition: background 0.2s;
+    }
+    .pw-submit:hover { background: #b8154f; }
+    .pw-error-msg {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: #ff6b8a;
+      margin-top: 8px;
+      min-height: 22px;
+      text-align: center;
+    }
+
+    /* Footer inside overlay */
+    .pw-footer {
+      position: relative;
+      z-index: 2;
+      background: #1c1f23;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      flex-shrink: 0;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-10px); }
+      40%      { transform: translateX(10px); }
+      60%      { transform: translateX(-8px); }
+      80%      { transform: translateX(8px); }
+    }
+
+    @media (max-width: 900px) {
+      .pw-nav  { padding: 0 30px; height: 80px; }
+      .pw-title { font-size: 28px; }
+      .pw-subtitle { font-size: 22px; }
+      .pw-input { width: 260px; font-size: 16px; }
+      .pw-footer { height: auto; flex-direction: column; gap: 24px; padding: 30px; }
+    }
+    @media (max-width: 600px) {
+      .pw-title { font-size: 22px; }
+      .pw-input { width: 200px; }
+    }
   </style>
 </head>
 <body>
@@ -500,19 +670,19 @@
       <div class="projects-inner">
         <h2 class="section-label">PROJECTS</h2>
         <div class="projects-grid">
-          <div class="project-card">
+          <div class="project-card" onclick="openPasswordOverlay()">
             <span class="project-tag">Fintech · Mobile App</span>
             <h3 class="project-name">Lendable Mexico</h3>
             <p class="project-desc">Building the first Mexican market product from the ground up — from app creation to brand definition and growth strategy.</p>
             <span class="project-pill">View case study</span>
           </div>
-          <div class="project-card">
+          <div class="project-card" onclick="openPasswordOverlay()">
             <span class="project-tag">UX Research · Design System</span>
             <h3 class="project-name">Design System Architecture</h3>
             <p class="project-desc">End-to-end design system creation covering tokens, components, documentation, and developer handoff guidelines.</p>
             <span class="project-pill">View case study</span>
           </div>
-          <div class="project-card">
+          <div class="project-card" onclick="openPasswordOverlay()">
             <span class="project-tag">Product Strategy · Growth</span>
             <h3 class="project-name">User-Centric Growth</h3>
             <p class="project-desc">Research-driven growth strategy through qualitative studies, usability testing, and iterative product improvements.</p>
@@ -562,6 +732,62 @@
     </div>
   </footer>
 
+  <!-- ══════════ PASSWORD OVERLAY ══════════ -->
+  <div class="pw-overlay" id="pwOverlay" role="dialog" aria-modal="true" aria-label="Password protected project">
+
+    <!-- Background blobs + noise -->
+    <div class="pw-blob pw-blob-1"></div>
+    <div class="pw-blob pw-blob-2"></div>
+    <div class="pw-noise"></div>
+
+    <!-- Nav -->
+    <nav class="pw-nav">
+      <a href="#home" class="nav-logo" onclick="closePasswordOverlay(); return false;">Júlia Martins</a>
+      <ul class="nav-links">
+        <li><a href="#home"     onclick="closePasswordOverlay(); return false;">Home</a></li>
+        <li><a href="#about"    onclick="closePasswordOverlay(); return false;">About me</a></li>
+        <li><a href="#projects" onclick="closePasswordOverlay(); return false;">Projects</a></li>
+        <li><a href="#contact"  onclick="closePasswordOverlay(); return false;">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Center content -->
+    <div class="pw-body">
+      <h2 class="pw-title">THIS PROJECT IS <em id="pwTyped"></em><span id="pwSlash" style="opacity:0">/</span></h2>
+      <p class="pw-subtitle">Reach out for the password to view more details.</p>
+      <div class="pw-form">
+        <input
+          class="pw-input"
+          id="pwInput"
+          type="password"
+          placeholder="Insert the password here"
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter') submitPassword()"
+        />
+        <button class="pw-submit" onclick="submitPassword()" aria-label="Submit password">→</button>
+      </div>
+      <p class="pw-error-msg" id="pwError"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pw-footer">
+      <p class="footer-text">
+        Created with <span class="patience">patience</span> in Figma &amp; Claude Code @ Júlia Martins, 2026.
+      </p>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/juliamartinsdemelo/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+          <img src="https://www.figma.com/api/mcp/asset/472d9d4b-ff76-4a33-8506-9a18a73b11e9" alt="LinkedIn" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Behance">
+          <img src="https://www.figma.com/api/mcp/asset/50f81d6a-8d28-491b-a750-78272c972d36" alt="Behance" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Substack">
+          <img src="https://www.figma.com/api/mcp/asset/d70739f8-e687-4edb-b530-a3eb471286ec" alt="Substack" />
+        </a>
+      </div>
+    </footer>
+  </div>
+
   <script>
     /* ── Mobile nav toggle ── */
     const toggle   = document.getElementById('navToggle');
@@ -592,6 +818,66 @@
     }, { threshold: 0.35, rootMargin: '-60px 0px -60px 0px' });
 
     sections.forEach(s => io.observe(s));
+
+    /* ── Password overlay ── */
+    const PASSWORD = '301926';
+    const overlay  = document.getElementById('pwOverlay');
+    const pwInput  = document.getElementById('pwInput');
+    const pwError  = document.getElementById('pwError');
+
+    /* ── Typewriter ── */
+    const TYPED_TEXT  = 'PASSWORD PROTECTED';
+    const typedEl     = document.getElementById('pwTyped');
+    const slashEl     = document.getElementById('pwSlash');
+    let   typingTimer = null;
+
+    function runTypewriter() {
+      typedEl.textContent = '';
+      slashEl.style.opacity = '0';
+      let i = 0;
+      typingTimer = setInterval(() => {
+        typedEl.textContent += TYPED_TEXT[i++];
+        if (i === TYPED_TEXT.length) {
+          clearInterval(typingTimer);
+          slashEl.style.opacity = '1';
+        }
+      }, 60);
+    }
+
+    function openPasswordOverlay() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      clearInterval(typingTimer);
+      setTimeout(runTypewriter, 200);
+      setTimeout(() => pwInput.focus(), 350);
+    }
+
+    function closePasswordOverlay() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      pwInput.value = '';
+      pwError.textContent = '';
+    }
+
+    function submitPassword() {
+      if (pwInput.value === PASSWORD) {
+        pwError.textContent = '';
+        closePasswordOverlay();
+        /* → Add redirect to the actual case study page here if needed */
+      } else {
+        pwError.textContent = 'Wrong password. Try again.';
+        pwInput.classList.remove('error');
+        void pwInput.offsetWidth; /* retrigger animation */
+        pwInput.classList.add('error');
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    }
+
+    /* Close with Escape key */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closePasswordOverlay();
+    });
   </script>
 
 </body>
