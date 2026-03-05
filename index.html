@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Júlia Martins — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #fff;
+      color: #1f2937;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Navigation ─────────────────────────────────────── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 73px;
+      height: 110px;
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 25px;
+      color: #fff;
+      letter-spacing: -0.16px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.16px;
+      transition: opacity 0.2s;
+    }
+    .nav-links a.active { text-decoration: underline; text-decoration-skip-ink: none; }
+    .nav-links a:hover { text-decoration: underline; text-decoration-skip-ink: none; }
+
+    /* Hamburger (mobile) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero Section ───────────────────────────────────── */
+    #home {
+      position: relative;
+      height: 440px;
+      background: #1c1f23;
+      overflow: hidden;
+    }
+
+    /* Grid pattern images */
+    .hero-grid {
+      position: absolute;
+      width: 772px;
+      height: 579px;
+      top: calc(50% + 69.65px - 289.63px);
+      pointer-events: none;
+    }
+    .hero-grid img { width: 100%; height: 100%; display: block; }
+    .hero-grid-left  { left: calc(50% - 750px); }
+    .hero-grid-right { left: calc(50% - 22px); }
+
+    /* Overlay + noise */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: #1c1f23;
+      opacity: 0.35;
+      backdrop-filter: blur(0.5px);
+      pointer-events: none;
+    }
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/eea60c26-df32-4bdf-9aa9-8a362f2b3da0');
+      background-size: 2048px 2048px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* Headline */
+    .hero-content {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 117px;
+      width: 1298px;
+    }
+    .hero-title { color: #fff; }
+    .hero-title .line-1 {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 100px;
+      line-height: 1.31;
+      letter-spacing: 1px;
+    }
+    .hero-title .line-2 {
+      display: flex;
+      align-items: center;
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-size: 96px;
+      line-height: 1.16;
+      letter-spacing: -1.44px;
+      margin-left: 234px;
+    }
+    .fw-light    { font-weight: 300; }
+    .fw-semibold { font-weight: 600; }
+
+    .cursor-blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── Main Content ───────────────────────────────────── */
+    .page-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+      padding-top: 100px;
+    }
+
+    /* ── About Me ───────────────────────────────────────── */
+    #about {
+      display: flex;
+      justify-content: center;
+      padding: 0 92px;
+    }
+    .about-inner { width: 1255px; max-width: 100%; }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 56px;
+      color: #1f2937;
+      margin-bottom: 24px;
+    }
+    .about-body {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 35px;
+      color: #000;
+    }
+    .about-body p + p { margin-top: 30px; }
+    .text-italic-medium { font-style: italic; font-weight: 500; }
+    .text-medium { font-weight: 500; }
+
+    /* ── Projects ───────────────────────────────────────── */
+    #projects {
+      padding: 0 92px;
+    }
+    .projects-inner { width: 1255px; max-width: 100%; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+      margin-top: 8px;
+    }
+    .project-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+    .project-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .project-name {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.2;
+      color: #1f2937;
+    }
+    .project-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #6b7280;
+    }
+    .project-pill {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #1f2937;
+    }
+    .project-pill::after {
+      content: '→';
+      font-size: 16px;
+    }
+
+    /* ── Contact / Collaborate ──────────────────────────── */
+    #contact { width: 100%; padding-top: 0; }
+
+    .contact-wrapper {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+    }
+    .contact-left {
+      flex: 1;
+      padding: 80px 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+    .contact-heading {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 56px;
+      color: #1f2937;
+    }
+    .contact-intro {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 35px;
+      color: #000;
+      margin-bottom: 8px;
+    }
+    .contact-body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 35px;
+      color: #000;
+    }
+    .contact-email {
+      font-size: 24px;
+      line-height: 35px;
+      color: #000;
+    }
+    .email-label  { font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    .email-addr   { font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .email-link   {
+      color: inherit;
+      text-decoration: none;
+      transition: text-decoration 0.15s;
+    }
+    .email-link:hover { text-decoration: underline; }
+
+    /* Right decorative panel */
+    .contact-right {
+      width: 570px;
+      min-height: 613px;
+      background: #1a1d20;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Animated gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(70px);
+    }
+    .blob-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(200, 25, 50, 0.95) 0%, rgba(140, 10, 25, 0.6) 50%, transparent 75%);
+      top: -60px;
+      left: -80px;
+      animation: blob1 3s ease-in-out infinite alternate;
+    }
+    .blob-2 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(220, 35, 65, 0.8) 0%, rgba(110, 10, 22, 0.5) 55%, transparent 80%);
+      bottom: -40px;
+      right: -60px;
+      animation: blob2 4s ease-in-out infinite alternate;
+    }
+    .blob-3 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(175, 18, 42, 0.7) 0%, transparent 70%);
+      top: 40%;
+      left: 20%;
+      animation: blob3 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes blob1 {
+      0%   { transform: translate(0px,   0px); }
+      50%  { transform: translate(120px, 80px); }
+      100% { transform: translate(60px, 160px); }
+    }
+    @keyframes blob2 {
+      0%   { transform: translate(0px,   0px); }
+      50%  { transform: translate(-100px, -70px); }
+      100% { transform: translate(-50px, -150px); }
+    }
+    @keyframes blob3 {
+      0%   { transform: translate(0px,   0px)  scale(1); }
+      50%  { transform: translate(80px, -80px) scale(1.3); }
+      100% { transform: translate(-60px, 60px) scale(0.8); }
+    }
+
+    .contact-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/eea60c26-df32-4bdf-9aa9-8a362f2b3da0');
+      background-size: 2048px 2048px;
+      opacity: 0.18;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      background: #1c1f23;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+    }
+    .footer-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 32px;
+      color: #fff;
+    }
+    .patience {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
+    }
+    .social-icons { display: flex; gap: 20px; }
+    .social-icon {
+      width: 80px;
+      height: 80px;
+      background: #303030;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .social-icon:hover { background: #484848; }
+    .social-icon img { width: 32px; height: 32px; display: block; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .hero-title .line-1 { font-size: 72px; }
+      .hero-title .line-2 { font-size: 64px; margin-left: 160px; }
+      .hero-content { width: calc(100% - 80px); }
+      .hero-grid-left  { left: calc(50% - 560px); }
+      .hero-grid-right { left: calc(50% - 16px); }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 30px; height: 80px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 80px; left: 0; right: 0; background: #1c1f23; padding: 20px 30px 30px; gap: 20px; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      #home { height: auto; padding: 100px 30px 60px; }
+      .hero-grid { display: none; }
+      .hero-content { position: static; transform: none; width: 100%; }
+      .hero-title .line-1 { font-size: 52px; }
+      .hero-title .line-2 { font-size: 44px; margin-left: 0; flex-wrap: wrap; }
+      .about-inner, .projects-inner { max-width: 100%; }
+      #about, #projects { padding: 0 30px; }
+      .about-body { font-size: 22px; }
+      .contact-wrapper { flex-direction: column; }
+      .contact-right { width: 100%; min-height: 280px; }
+      .contact-left { padding: 60px 30px; }
+      .contact-heading, .section-label { font-size: 30px; }
+      .contact-intro { font-size: 24px; }
+      .contact-body, .contact-email { font-size: 18px; }
+      footer { height: auto; flex-direction: column; gap: 24px; padding: 30px; text-align: center; }
+      .footer-text { font-size: 18px; }
+      .social-icon { width: 56px; height: 56px; }
+      .social-icon img { width: 24px; height: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title .line-1 { font-size: 38px; }
+      .hero-title .line-2 { font-size: 34px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="home">
+    <nav>
+      <a href="#home" class="nav-logo">Júlia Martins</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"     class="active">Home</a></li>
+        <li><a href="#about">About me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Grid pattern imagery -->
+    <div class="hero-grid hero-grid-left">
+      <img src="https://www.figma.com/api/mcp/asset/268dbeeb-ec61-46a0-be65-e92e4b6475c0" alt="" />
+    </div>
+    <div class="hero-grid hero-grid-right">
+      <img src="https://www.figma.com/api/mcp/asset/e303d106-0fec-499c-ae64-76751750b30d" alt="" />
+    </div>
+
+    <div class="hero-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line-1">BUILDING PRODUCTS&nbsp;</span>
+        <span class="line-2">
+          <span class="fw-light">that&nbsp;</span><span class="fw-semibold">connects</span><span class="fw-light">&nbsp;with&nbsp;</span><span class="fw-semibold">people<span class="cursor-blink">|</span></span>
+        </span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ══════════ MAIN SECTIONS ══════════ -->
+  <div class="page-sections">
+
+    <!-- ── About Me ── -->
+    <section id="about">
+      <div class="about-inner">
+        <h2 class="section-label">ABOUT ME</h2>
+        <div class="about-body">
+          <p>I'm a <span class="text-italic-medium">Brazilian Senior Product Designer</span> based in Mexico City with <span class="text-medium">6+ years of experience</span> <span class="text-italic-medium">crafting seamless, user-centric customer experiences.</span></p>
+          <p>Currently at Lendable, a leading UK fintech valued at £3.5B, where I'm building their first Mexican market product from the ground up as a founding product designer; covering app creation, brand definition, and growth strategy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section id="projects">
+      <div class="projects-inner">
+        <h2 class="section-label">PROJECTS</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <span class="project-tag">Fintech · Mobile App</span>
+            <h3 class="project-name">Lendable Mexico</h3>
+            <p class="project-desc">Building the first Mexican market product from the ground up — from app creation to brand definition and growth strategy.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+          <div class="project-card">
+            <span class="project-tag">UX Research · Design System</span>
+            <h3 class="project-name">Design System Architecture</h3>
+            <p class="project-desc">End-to-end design system creation covering tokens, components, documentation, and developer handoff guidelines.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+          <div class="project-card">
+            <span class="project-tag">Product Strategy · Growth</span>
+            <h3 class="project-name">User-Centric Growth</h3>
+            <p class="project-desc">Research-driven growth strategy through qualitative studies, usability testing, and iterative product improvements.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact / Collaborate ── -->
+    <section id="contact">
+      <div class="contact-wrapper">
+        <div class="contact-left">
+          <h2 class="contact-heading">EAGER TO COLLABORATE?</h2>
+          <p class="contact-intro">I know! Me too.&nbsp;</p>
+          <p class="contact-body">Let's create innovative, user-centric products together. Whether it's product design, UX research or design systems, I'm always open to exciting challenges.</p>
+          <p class="contact-email">
+            📩 <span class="email-label">Reach out via email:</span>&nbsp;<a href="mailto:designerjuliamartins@gmail.com" class="email-link"><span class="email-addr">designerjuliamartins@gmail.com</span></a>
+          </p>
+        </div>
+        <div class="contact-right">
+          <div class="blob blob-1"></div>
+          <div class="blob blob-2"></div>
+          <div class="blob blob-3"></div>
+          <div class="contact-noise"></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-sections -->
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p class="footer-text">
+      Created with <span class="patience">patience</span> in Figma &amp; Claude Code @ Júlia Martins, 2026.
+    </p>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/juliamartinsdemelo/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+        <img src="https://www.figma.com/api/mcp/asset/708ff231-3e3e-4041-8129-1976f518b43b" alt="LinkedIn" />
+      </a>
+      <a href="#" class="social-icon" aria-label="Behance">
+        <img src="https://www.figma.com/api/mcp/asset/34356d7d-8771-4238-8925-a771465f7d44" alt="Behance" />
+      </a>
+      <a href="#" class="social-icon" aria-label="Substack">
+        <img src="https://www.figma.com/api/mcp/asset/8fdd60c9-eeb7-46bd-8161-a4fac3d3d017" alt="Substack" />
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Mobile nav toggle ── */
+    const toggle   = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    /* Close nav on link click (mobile) */
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    /* ── Active nav on scroll ── */
+    const sections = document.querySelectorAll('section[id]');
+    const links    = document.querySelectorAll('.nav-links a');
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          links.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-60px 0px -60px 0px' });
+
+    sections.forEach(s => io.observe(s));
+  </script>
+
+</body>
+</html>
