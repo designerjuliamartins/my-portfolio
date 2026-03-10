@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Júlia Martins — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #fff;
+      color: #1f2937;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Navigation ─────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 20;
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+      transition: background 0.3s ease, opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 73px;
+      height: 110px;
+    }
+    nav.scrolled {
+      background: #1c1f23;
+      opacity: 1;
+      pointer-events: all;
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 25px;
+      color: #fff;
+      letter-spacing: -0.16px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.16px;
+      transition: opacity 0.2s;
+    }
+    .nav-links a.active { text-decoration: underline; text-decoration-skip-ink: none; }
+    .nav-links a:hover { text-decoration: underline; text-decoration-skip-ink: none; }
+
+    /* Hamburger (mobile) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero Section ───────────────────────────────────── */
+    #home {
+      position: relative;
+      height: 440px;
+      background: #1c1f23;
+      overflow: hidden;
+      padding-top: 110px;
+    }
+
+    /* Grid pattern images */
+    .hero-grid {
+      position: absolute;
+      width: 772px;
+      height: 579px;
+      top: calc(50% + 69.65px - 289.63px);
+      pointer-events: none;
+    }
+    .hero-grid img { width: 100%; height: 100%; display: block; }
+    .hero-grid-left  { left: calc(50% - 750px); }
+    .hero-grid-right { left: calc(50% - 22px); }
+
+    /* Overlay + noise */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: #1c1f23;
+      opacity: 0.35;
+      backdrop-filter: blur(0.5px);
+      pointer-events: none;
+    }
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/eea60c26-df32-4bdf-9aa9-8a362f2b3da0');
+      background-size: 2048px 2048px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* Headline */
+    .hero-content {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 117px;
+      width: 1298px;
+    }
+    .hero-title { color: #fff; }
+    .hero-title .line-1 {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 100px;
+      line-height: 1.31;
+      letter-spacing: 1px;
+    }
+    .hero-title .line-2 {
+      display: flex;
+      align-items: center;
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-size: 96px;
+      line-height: 1.16;
+      letter-spacing: -1.44px;
+      margin-left: 234px;
+    }
+    .fw-light    { font-weight: 300; }
+    .fw-semibold { font-weight: 600; }
+
+    .cursor-blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── Main Content ───────────────────────────────────── */
+    .page-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+      padding-top: 100px;
+    }
+
+    /* ── About Me ───────────────────────────────────────── */
+    #about {
+      display: flex;
+      justify-content: center;
+      padding: 0 92px;
+    }
+    .about-inner { width: 1255px; max-width: 100%; }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 56px;
+      color: #1f2937;
+      margin-bottom: 24px;
+    }
+    .about-body {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 35px;
+      color: #000;
+    }
+    .about-body p + p { margin-top: 30px; }
+    .text-italic-medium { font-style: italic; font-weight: 500; }
+    .text-medium { font-weight: 500; }
+
+    /* ── Projects ───────────────────────────────────────── */
+    #projects {
+      padding: 0 92px;
+    }
+    .projects-inner { width: 1255px; max-width: 100%; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+      margin-top: 8px;
+    }
+    .project-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+    .project-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .project-name {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.2;
+      color: #1f2937;
+    }
+    .project-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #6b7280;
+    }
+    .project-pill {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #1f2937;
+    }
+    .project-pill::after {
+      content: '→';
+      font-size: 16px;
+    }
+
+    /* ── Contact / Collaborate ──────────────────────────── */
+    #contact { width: 100%; padding-top: 0; }
+
+    .contact-wrapper {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+    }
+    .contact-left {
+      flex: 1;
+      padding: 80px 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+    .contact-heading {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 56px;
+      color: #1f2937;
+    }
+    .contact-intro {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 35px;
+      color: #000;
+      margin-bottom: 8px;
+    }
+    .contact-body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 35px;
+      color: #000;
+    }
+    .contact-email {
+      font-size: 24px;
+      line-height: 35px;
+      color: #000;
+    }
+    .email-label  { font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    .email-addr   { font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .email-link   {
+      color: inherit;
+      text-decoration: none;
+      transition: text-decoration 0.15s;
+    }
+    .email-link:hover { text-decoration: underline; }
+
+    /* Right decorative panel */
+    .contact-right {
+      width: 570px;
+      min-height: 613px;
+      background: #1a1d20;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Animated gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(70px);
+    }
+    .blob-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(200, 25, 50, 0.95) 0%, rgba(140, 10, 25, 0.6) 50%, transparent 75%);
+      top: -60px;
+      left: -80px;
+      animation: blob1 3s ease-in-out infinite alternate;
+    }
+    .blob-2 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(220, 35, 65, 0.8) 0%, rgba(110, 10, 22, 0.5) 55%, transparent 80%);
+      bottom: -40px;
+      right: -60px;
+      animation: blob2 4s ease-in-out infinite alternate;
+    }
+    .blob-3 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(175, 18, 42, 0.7) 0%, transparent 70%);
+      top: 40%;
+      left: 20%;
+      animation: blob3 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes blob1 {
+      0%   { transform: translate(0px,   0px); }
+      50%  { transform: translate(120px, 80px); }
+      100% { transform: translate(60px, 160px); }
+    }
+    @keyframes blob2 {
+      0%   { transform: translate(0px,   0px); }
+      50%  { transform: translate(-100px, -70px); }
+      100% { transform: translate(-50px, -150px); }
+    }
+    @keyframes blob3 {
+      0%   { transform: translate(0px,   0px)  scale(1); }
+      50%  { transform: translate(80px, -80px) scale(1.3); }
+      100% { transform: translate(-60px, 60px) scale(0.8); }
+    }
+
+    .contact-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/eea60c26-df32-4bdf-9aa9-8a362f2b3da0');
+      background-size: 2048px 2048px;
+      opacity: 0.18;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      background: #1c1f23;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+    }
+    .footer-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 32px;
+      color: #fff;
+    }
+    .patience {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
+    }
+    .social-icons { display: flex; gap: 20px; }
+    .social-icon {
+      width: 80px;
+      height: 80px;
+      background: #303030;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .social-icon:hover { background: #484848; }
+    .social-icon img { width: 32px; height: 32px; display: block; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .hero-title .line-1 { font-size: 72px; }
+      .hero-title .line-2 { font-size: 64px; margin-left: 160px; }
+      .hero-content { width: calc(100% - 80px); }
+      .hero-grid-left  { left: calc(50% - 560px); }
+      .hero-grid-right { left: calc(50% - 16px); }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 30px; height: 80px; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: #1c1f23; padding: 20px 30px 30px; gap: 20px; z-index: 19; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      #home { height: auto; padding: 80px 30px 60px; }
+      .hero-grid { display: none; }
+      .hero-content { position: static; transform: none; width: 100%; }
+      .hero-title .line-1 { font-size: 52px; }
+      .hero-title .line-2 { font-size: 44px; margin-left: 0; flex-wrap: wrap; }
+      .about-inner, .projects-inner { max-width: 100%; }
+      #about, #projects { padding: 0 30px; }
+      .about-body { font-size: 22px; }
+      .contact-wrapper { flex-direction: column; }
+      .contact-right { width: 100%; min-height: 280px; }
+      .contact-left { padding: 60px 30px; }
+      .contact-heading, .section-label { font-size: 30px; }
+      .contact-intro { font-size: 24px; }
+      .contact-body, .contact-email { font-size: 18px; }
+      footer { height: auto; flex-direction: column; gap: 24px; padding: 30px; text-align: center; }
+      .footer-text { font-size: 18px; }
+      .social-icon { width: 56px; height: 56px; }
+      .social-icon img { width: 24px; height: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title .line-1 { font-size: 38px; }
+      .hero-title .line-2 { font-size: 34px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Playground Page ─────────────────────────────────── */
+    .playground-page {
+      position: fixed;
+      inset: 0;
+      z-index: 15;
+      background: #fff;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .playground-page.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .playground-body {
+      padding: 160px 92px 100px;
+    }
+    .playground-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    .playground-subtitle {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 22px;
+      color: #6b7280;
+      margin-bottom: 48px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 260px;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f3f4f6;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    .gallery-item.empty {
+      border: 1.5px dashed #d1d5db;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .gallery-item.empty .empty-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #9ca3af;
+    }
+    .gallery-item.empty .empty-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 0.5px;
+    }
+
+    .gi-wide   { grid-column: span 8; }
+    .gi-narrow { grid-column: span 4; }
+    .gi-half   { grid-column: span 6; }
+    .gi-third  { grid-column: span 4; }
+    .gi-tall   { grid-row: span 2; }
+
+    @media (max-width: 900px) {
+      .playground-body { padding: 80px 30px 80px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+      .gi-wide, .gi-narrow, .gi-half, .gi-third { grid-column: span 1; }
+      .gi-tall { grid-row: span 1; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    }
+
+    /* ── Password Overlay ───────────────────────────────── */
+    .pw-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #1b1e22;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .pw-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Gradient blobs inside the overlay */
+    .pw-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+    }
+    .pw-blob-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(190, 25, 50, 0.9) 0%, rgba(120, 10, 25, 0.55) 50%, transparent 75%);
+      top: -150px;
+      left: -100px;
+      animation: blob1 3s ease-in-out infinite alternate;
+    }
+    .pw-blob-2 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(215, 25, 100, 0.5) 0%, transparent 70%);
+      top: 30%;
+      left: 5%;
+      animation: blob3 5s ease-in-out infinite alternate;
+    }
+    .pw-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.figma.com/api/mcp/asset/70a2ba42-36b6-4bc3-907c-3f9519feb152');
+      background-size: 2048px 2048px;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Nav inside overlay */
+    .pw-nav {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 73px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    /* Center content */
+    .pw-body {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+      padding: 0 20px;
+    }
+    .pw-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.2;
+      letter-spacing: 1px;
+      color: #fff;
+      text-align: center;
+    }
+    .pw-title em {
+      font-style: italic;
+    }
+    .pw-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 35px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .pw-form {
+      display: flex;
+      align-items: stretch;
+      margin-top: 8px;
+    }
+    .pw-input {
+      width: 400px;
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #1b1e22;
+      background: #fff;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      line-height: 35px;
+    }
+    .pw-input::placeholder { color: #9e9e9e; }
+    .pw-input.error { animation: shake 0.4s ease; }
+    .pw-submit {
+      background: #d71964;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 32px;
+      color: #fff;
+      line-height: 35px;
+      transition: background 0.2s;
+    }
+    .pw-submit:hover { background: #b8154f; }
+    .pw-error-msg {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: #ff6b8a;
+      margin-top: 8px;
+      min-height: 22px;
+      text-align: center;
+    }
+
+    /* Footer inside overlay */
+    .pw-footer {
+      position: relative;
+      z-index: 2;
+      background: #1c1f23;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      flex-shrink: 0;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-10px); }
+      40%      { transform: translateX(10px); }
+      60%      { transform: translateX(-8px); }
+      80%      { transform: translateX(8px); }
+    }
+
+    @media (max-width: 900px) {
+      .pw-nav  { padding: 0 30px; height: 80px; }
+      .pw-title { font-size: 28px; }
+      .pw-subtitle { font-size: 22px; }
+      .pw-input { width: 260px; font-size: 16px; }
+      .pw-footer { height: auto; flex-direction: column; gap: 24px; padding: 30px; }
+    }
+    @media (max-width: 600px) {
+      .pw-title { font-size: 22px; }
+      .pw-input { width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ PERSISTENT NAV ══════════ -->
+  <nav>
+    <a href="#home" class="nav-logo" onclick="closePlayground('#home'); return false;">Júlia Martins</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"    class="active" onclick="closePlayground('#home'); return false;">Home</a></li>
+      <li><a href="#about"   onclick="closePlayground('#about'); return false;">About me</a></li>
+      <!-- <li><a href="#projects">Projects</a></li> -->
+      <li><a href="#" id="playgroundLink" onclick="openPlayground(); return false;">Playground</a></li>
+      <li><a href="#contact" onclick="closePlayground('#contact'); return false;">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="home">
+
+    <!-- Grid pattern imagery -->
+    <div class="hero-grid hero-grid-left">
+      <img src="https://www.figma.com/api/mcp/asset/268dbeeb-ec61-46a0-be65-e92e4b6475c0" alt="" />
+    </div>
+    <div class="hero-grid hero-grid-right">
+      <img src="https://www.figma.com/api/mcp/asset/e303d106-0fec-499c-ae64-76751750b30d" alt="" />
+    </div>
+
+    <div class="hero-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line-1">BUILDING PRODUCTS&nbsp;</span>
+        <span class="line-2">
+          <span class="fw-light">that&nbsp;</span><span class="fw-semibold">connects</span><span class="fw-light">&nbsp;with&nbsp;</span><span class="fw-semibold">people<span class="cursor-blink">|</span></span>
+        </span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ══════════ MAIN SECTIONS ══════════ -->
+  <div class="page-sections">
+
+    <!-- ── About Me ── -->
+    <section id="about">
+      <div class="about-inner">
+        <h2 class="section-label">ABOUT ME</h2>
+        <div class="about-body">
+          <p>I'm a <span class="text-italic-medium">Brazilian Senior Product Designer</span> based in Mexico City with <span class="text-medium">6+ years of experience</span> <span class="text-italic-medium">crafting seamless, user-centric customer experiences.</span></p>
+          <p>Currently at Lendable, a leading UK fintech valued at £3.5B, where I'm building their first Mexican market product from the ground up as a founding product designer; covering app creation, brand definition, and growth strategy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <!--
+    <section id="projects">
+      <div class="projects-inner">
+        <h2 class="section-label">PROJECTS</h2>
+        <div class="projects-grid">
+          <div class="project-card" onclick="openPasswordOverlay()">
+            <span class="project-tag">Fintech · Mobile App</span>
+            <h3 class="project-name">Lendable Mexico</h3>
+            <p class="project-desc">Building the first Mexican market product from the ground up — from app creation to brand definition and growth strategy.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+          <div class="project-card" onclick="openPasswordOverlay()">
+            <span class="project-tag">UX Research · Design System</span>
+            <h3 class="project-name">Design System Architecture</h3>
+            <p class="project-desc">End-to-end design system creation covering tokens, components, documentation, and developer handoff guidelines.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+          <div class="project-card" onclick="openPasswordOverlay()">
+            <span class="project-tag">Product Strategy · Growth</span>
+            <h3 class="project-name">User-Centric Growth</h3>
+            <p class="project-desc">Research-driven growth strategy through qualitative studies, usability testing, and iterative product improvements.</p>
+            <span class="project-pill">View case study</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    -->
+
+    <!-- ── Contact / Collaborate ── -->
+    <section id="contact">
+      <div class="contact-wrapper">
+        <div class="contact-left">
+          <h2 class="contact-heading">EAGER TO COLLABORATE?</h2>
+          <p class="contact-intro">I know! Me too.&nbsp;</p>
+          <p class="contact-body">Let's create innovative, user-centric products together. Whether it's product design, UX research or design systems, I'm always open to exciting challenges.</p>
+          <p class="contact-email">
+            📩 <span class="email-label">Reach out via email:</span>&nbsp;<a href="mailto:designerjuliamartins@gmail.com" class="email-link"><span class="email-addr">designerjuliamartins@gmail.com</span></a>
+          </p>
+        </div>
+        <div class="contact-right">
+          <div class="blob blob-1"></div>
+          <div class="blob blob-2"></div>
+          <div class="blob blob-3"></div>
+          <div class="contact-noise"></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-sections -->
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p class="footer-text">
+      Created with <span class="patience">patience</span> in Figma &amp; Claude Code @ Júlia Martins, 2026.
+    </p>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/juliamartinsdemelo/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+        <img src="https://www.figma.com/api/mcp/asset/708ff231-3e3e-4041-8129-1976f518b43b" alt="LinkedIn" />
+      </a>
+      <a href="#" class="social-icon" aria-label="Behance">
+        <img src="https://www.figma.com/api/mcp/asset/34356d7d-8771-4238-8925-a771465f7d44" alt="Behance" />
+      </a>
+      <a href="#" class="social-icon" aria-label="Substack">
+        <img src="https://www.figma.com/api/mcp/asset/8fdd60c9-eeb7-46bd-8161-a4fac3d3d017" alt="Substack" />
+      </a>
+    </div>
+  </footer>
+
+  <!-- ══════════ PLAYGROUND PAGE ══════════ -->
+  <div class="playground-page" id="playgroundPage">
+
+    <!-- Gallery -->
+    <div class="playground-body">
+      <h2 class="playground-title">PLAYGROUND</h2>
+      <p class="playground-subtitle">Experimental projects, photoshoots & visual explorations.</p>
+      <div class="gallery-grid">
+
+        <!-- Row 1 -->
+        <div class="gallery-item gi-wide gi-tall empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+        <div class="gallery-item gi-narrow empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+        <div class="gallery-item gi-narrow empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="gallery-item gi-third empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+        <div class="gallery-item gi-half empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+        <div class="gallery-item gi-third empty">
+          <div class="empty-icon">+</div>
+          <span class="empty-label">Add photo</span>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer-text">
+        Created with <span class="patience">patience</span> in Figma &amp; Claude Code @ Júlia Martins, 2026.
+      </p>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/juliamartinsdemelo/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+          <img src="https://www.figma.com/api/mcp/asset/708ff231-3e3e-4041-8129-1976f518b43b" alt="LinkedIn" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Behance">
+          <img src="https://www.figma.com/api/mcp/asset/34356d7d-8771-4238-8925-a771465f7d44" alt="Behance" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Substack">
+          <img src="https://www.figma.com/api/mcp/asset/8fdd60c9-eeb7-46bd-8161-a4fac3d3d017" alt="Substack" />
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ══════════ PASSWORD OVERLAY ══════════ -->
+  <div class="pw-overlay" id="pwOverlay" role="dialog" aria-modal="true" aria-label="Password protected project">
+
+    <!-- Background blobs + noise -->
+    <div class="pw-blob pw-blob-1"></div>
+    <div class="pw-blob pw-blob-2"></div>
+    <div class="pw-noise"></div>
+
+    <!-- Nav -->
+    <nav class="pw-nav">
+      <a href="#home" class="nav-logo" onclick="closePasswordOverlay(); return false;">Júlia Martins</a>
+      <ul class="nav-links">
+        <li><a href="#home"     onclick="closePasswordOverlay(); return false;">Home</a></li>
+        <li><a href="#about"    onclick="closePasswordOverlay(); return false;">About me</a></li>
+        <li><a href="#projects" onclick="closePasswordOverlay(); return false;">Projects</a></li>
+        <li><a href="#contact"  onclick="closePasswordOverlay(); return false;">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Center content -->
+    <div class="pw-body">
+      <h2 class="pw-title">THIS PROJECT IS <em id="pwTyped"></em><span id="pwSlash" style="opacity:0">/</span></h2>
+      <p class="pw-subtitle">Reach out for the password to view more details.</p>
+      <div class="pw-form">
+        <input
+          class="pw-input"
+          id="pwInput"
+          type="password"
+          placeholder="Insert the password here"
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter') submitPassword()"
+        />
+        <button class="pw-submit" onclick="submitPassword()" aria-label="Submit password">→</button>
+      </div>
+      <p class="pw-error-msg" id="pwError"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pw-footer">
+      <p class="footer-text">
+        Created with <span class="patience">patience</span> in Figma &amp; Claude Code @ Júlia Martins, 2026.
+      </p>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/juliamartinsdemelo/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+          <img src="https://www.figma.com/api/mcp/asset/472d9d4b-ff76-4a33-8506-9a18a73b11e9" alt="LinkedIn" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Behance">
+          <img src="https://www.figma.com/api/mcp/asset/50f81d6a-8d28-491b-a750-78272c972d36" alt="Behance" />
+        </a>
+        <a href="#" class="social-icon" aria-label="Substack">
+          <img src="https://www.figma.com/api/mcp/asset/d70739f8-e687-4edb-b530-a3eb471286ec" alt="Substack" />
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* ── Nav background on scroll ── */
+    const mainNav = document.querySelector('nav');
+    const heroHeight = document.getElementById('home').offsetHeight;
+    function updateNavBg() {
+      mainNav.classList.toggle('scrolled', window.scrollY > heroHeight - 110);
+    }
+    window.addEventListener('scroll', updateNavBg, { passive: true });
+    updateNavBg();
+
+    /* ── Mobile nav toggle ── */
+    const toggle   = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    /* Close nav on link click (mobile) */
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    /* ── Active nav on scroll ── */
+    const sections = document.querySelectorAll('section[id]');
+    const links    = document.querySelectorAll('.nav-links a');
+
+    function setActiveLink(href) {
+      links.forEach(l => l.classList.remove('active'));
+      links.forEach(l => { if (l.getAttribute('href') === href) l.classList.add('active'); });
+    }
+
+    const io = new IntersectionObserver(entries => {
+      if (document.getElementById('playgroundPage').classList.contains('open')) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveLink('#' + entry.target.getAttribute('id'));
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-60px 0px -60px 0px' });
+
+    sections.forEach(s => io.observe(s));
+
+    /* ── Password overlay ── */
+    const PASSWORD = '301926';
+    const overlay  = document.getElementById('pwOverlay');
+    const pwInput  = document.getElementById('pwInput');
+    const pwError  = document.getElementById('pwError');
+
+    /* ── Typewriter ── */
+    const TYPED_TEXT  = 'PASSWORD PROTECTED';
+    const typedEl     = document.getElementById('pwTyped');
+    const slashEl     = document.getElementById('pwSlash');
+    let   typingTimer = null;
+
+    function runTypewriter() {
+      typedEl.textContent = '';
+      slashEl.style.opacity = '0';
+      let i = 0;
+      typingTimer = setInterval(() => {
+        typedEl.textContent += TYPED_TEXT[i++];
+        if (i === TYPED_TEXT.length) {
+          clearInterval(typingTimer);
+          slashEl.style.opacity = '1';
+        }
+      }, 60);
+    }
+
+    function openPasswordOverlay() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      clearInterval(typingTimer);
+      setTimeout(runTypewriter, 200);
+      setTimeout(() => pwInput.focus(), 350);
+    }
+
+    function closePasswordOverlay() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      pwInput.value = '';
+      pwError.textContent = '';
+    }
+
+    function submitPassword() {
+      if (pwInput.value === PASSWORD) {
+        pwError.textContent = '';
+        closePasswordOverlay();
+        /* → Add redirect to the actual case study page here if needed */
+      } else {
+        pwError.textContent = 'Wrong password. Try again.';
+        pwInput.classList.remove('error');
+        void pwInput.offsetWidth; /* retrigger animation */
+        pwInput.classList.add('error');
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    }
+
+    /* Close with Escape key */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (overlay.classList.contains('open')) closePasswordOverlay();
+        if (playgroundPage.classList.contains('open')) closePlayground();
+      }
+    });
+
+    /* ── Playground page ── */
+    const playgroundPage = document.getElementById('playgroundPage');
+    const playgroundLink = document.getElementById('playgroundLink');
+
+    function openPlayground() {
+      playgroundPage.classList.add('open');
+      playgroundPage.scrollTop = 0;
+      mainNav.classList.add('scrolled');
+      mainNav.style.opacity = '1';
+      mainNav.style.pointerEvents = 'all';
+      setActiveLink(null);
+      playgroundLink.classList.add('active');
+    }
+
+    function closePlayground(anchor) {
+      const wasOpen = playgroundPage.classList.contains('open');
+      playgroundPage.classList.remove('open');
+      playgroundLink.classList.remove('active');
+      mainNav.style.opacity = '';
+      mainNav.style.pointerEvents = '';
+      updateNavBg();
+      if (anchor) {
+        const target = document.querySelector(anchor);
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), wasOpen ? 50 : 0);
+      }
+    }
+  </script>
+
+</body>
+</html>
